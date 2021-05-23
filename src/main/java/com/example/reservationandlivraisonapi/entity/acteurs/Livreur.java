@@ -10,9 +10,9 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @DiscriminatorValue("LIVR")
 public class Livreur extends ParticulierInfo {
 

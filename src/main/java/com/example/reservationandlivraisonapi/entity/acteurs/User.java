@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE_USER", discriminatorType = DiscriminatorType.STRING, length = 4)
 public abstract class User {
