@@ -27,4 +27,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT r from Restaurant r")
     Collection<Restaurant> findAllRestaurants();
 
+    @Query("SELECT a from Assistant a")
+    Collection<Assistant> findAllAssistants();
+
+    @Query("SELECT a from AssistantExpert a")
+    Collection<AssistantExpert> findAllAssistantsExperts();
+
 }
