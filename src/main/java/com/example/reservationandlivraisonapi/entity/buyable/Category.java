@@ -1,6 +1,7 @@
 package com.example.reservationandlivraisonapi.entity.buyable;
 
 
+import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,8 @@ public abstract class Category {
 	private Integer id;
 	private String name;
 
+	@ManyToOne
+	private Restaurant restaurant;
 
 
 }

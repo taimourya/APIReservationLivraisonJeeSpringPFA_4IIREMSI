@@ -2,6 +2,7 @@ package com.example.reservationandlivraisonapi.entity.acteurs;
 
 
 import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
+import com.example.reservationandlivraisonapi.entity.buyable.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,8 @@ public class Restaurant extends EntrepriseInfo {
 
     @OneToMany(mappedBy = "restaurant")
     private Collection<Buyable> buyables;
+    @OneToMany(mappedBy = "restaurant")
+    private Collection<Category> categories;
 
     public Restaurant(Integer user_id, String username, String password, String ville, String adresse, String name, String phone) {
         super(user_id, username, password, ville, adresse, name, phone);

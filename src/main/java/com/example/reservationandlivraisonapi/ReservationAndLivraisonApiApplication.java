@@ -53,18 +53,19 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
         userRepository.save(new Restaurant(null, "restaurant1", "123", "ville", "adr",
                 "restaunt1","+21243334135" ));
 
-        categoryRepository.save(new DrinkCategory(null, "Soda"));
-        categoryRepository.save(new DrinkCategory(null, "Jus"));
-        categoryRepository.save(new DrinkCategory(null, "Cafe"));
-
-        categoryRepository.save(new FoodCategory(null, "Tacos"));
-        categoryRepository.save(new FoodCategory(null, "Sandwitch"));
-        categoryRepository.save(new FoodCategory(null, "Hamburger"));
-        categoryRepository.save(new FoodCategory(null, "Plas"));
-        categoryRepository.save(new FoodCategory(null, "Dessert"));
-
-
         int restaurant_id = 5;
+
+        categoryRepository.save(new DrinkCategory(null, "Soda", (Restaurant) userRepository.findById(restaurant_id).get()));
+        categoryRepository.save(new DrinkCategory(null, "Jus", (Restaurant) userRepository.findById(restaurant_id).get()));
+        categoryRepository.save(new DrinkCategory(null, "Cafe", (Restaurant) userRepository.findById(restaurant_id).get()));
+
+        categoryRepository.save(new FoodCategory(null, "Tacos", (Restaurant) userRepository.findById(restaurant_id).get()));
+        categoryRepository.save(new FoodCategory(null, "Sandwitch", (Restaurant) userRepository.findById(restaurant_id).get()));
+        categoryRepository.save(new FoodCategory(null, "Hamburger", (Restaurant) userRepository.findById(restaurant_id).get()));
+        categoryRepository.save(new FoodCategory(null, "Plas", (Restaurant) userRepository.findById(restaurant_id).get()));
+        categoryRepository.save(new FoodCategory(null, "Dessert", (Restaurant) userRepository.findById(restaurant_id).get()));
+
+
 
         buyableRepository.save(new Drink(null, "coca cola", 5, "image",
                 (Restaurant) userRepository.findById(restaurant_id).get(),
