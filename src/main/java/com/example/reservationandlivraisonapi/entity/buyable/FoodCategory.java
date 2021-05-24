@@ -1,5 +1,6 @@
 package com.example.reservationandlivraisonapi.entity.buyable;
 
+import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +21,8 @@ public class FoodCategory extends Category {
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Collection<Food> items;
 
-    public FoodCategory(Integer id, String name) {
-        super(id, name);
+    public FoodCategory(Integer id, String name, Restaurant restaurant) {
+        super(id, name, restaurant);
+        this.items = items;
     }
 }
