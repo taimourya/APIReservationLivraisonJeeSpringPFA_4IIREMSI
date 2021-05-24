@@ -19,10 +19,9 @@ public class FoodCategory extends Category {
 
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-    private Collection<Food> items;
+    private Collection<Food> items = new ArrayList<>();
 
     public FoodCategory(Integer id, String name, Restaurant restaurant) {
         super(id, name, restaurant);
-        this.items = items;
     }
 }

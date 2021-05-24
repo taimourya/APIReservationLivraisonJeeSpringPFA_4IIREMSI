@@ -19,11 +19,11 @@ import java.util.Collection;
 public abstract class Item extends Buyable {
 
 
-    @OneToMany(mappedBy = "item")
-    private Collection<MenuItem> menuItems;
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
+    private Collection<MenuItem> menuItems = new ArrayList<>();
 
     public Item(Integer id, String name, float price, String image, Restaurant restaurant) {
-        super(id, name, price, image, restaurant);
+        super(id, name, price, image, restaurant, null);
         this.menuItems = menuItems;
     }
 }

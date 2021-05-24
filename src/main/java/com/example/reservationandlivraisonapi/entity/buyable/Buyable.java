@@ -3,11 +3,14 @@ package com.example.reservationandlivraisonapi.entity.buyable;
 import com.example.reservationandlivraisonapi.entity.acteurs.EntrepriseInfo;
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import com.example.reservationandlivraisonapi.entity.acteurs.User;
+import com.example.reservationandlivraisonapi.entity.commande.Commande;
+import com.example.reservationandlivraisonapi.entity.commande.CommandeBuyable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -27,6 +30,9 @@ public abstract class Buyable {
 
 	@ManyToOne
 	private Restaurant restaurant;
+
+	@OneToMany(mappedBy = "buyable")
+	private Collection<CommandeBuyable> commandeBuyables = new ArrayList<>();;
 
 
 

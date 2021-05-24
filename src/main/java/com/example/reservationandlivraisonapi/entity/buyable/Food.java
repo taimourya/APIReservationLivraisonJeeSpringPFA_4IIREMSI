@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.util.Collection;
 
@@ -16,7 +17,7 @@ import java.util.Collection;
 @DiscriminatorValue("FOOD")
 public class Food extends Item {
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private FoodCategory category;
 
 	public Food(Integer id, String name, float price, String image, Restaurant restaurant, FoodCategory category) {
