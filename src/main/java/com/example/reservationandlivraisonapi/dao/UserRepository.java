@@ -10,6 +10,7 @@ import java.util.Collection;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+    //diagrame de navigation
 
     @Query("SELECT l from Livreur l")
     Collection<Livreur> findAllLivreurs();
@@ -22,5 +23,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT a from Administrateur a")
     Collection<Administrateur> findAllAdministrateurs();
+
+    @Query("SELECT r from Restaurant r")
+    Collection<Restaurant> findAllRestaurants();
+
+    @Query("SELECT a from Assistant a")
+    Collection<Assistant> findAllAssistants();
+
+    @Query("SELECT a from AssistantExpert a")
+    Collection<AssistantExpert> findAllAssistantsExperts();
 
 }

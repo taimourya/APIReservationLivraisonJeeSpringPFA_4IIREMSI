@@ -7,9 +7,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @DiscriminatorValue("DIRE")
 public class Directeur extends Administrateur {
     public Directeur(Integer user_id, String username, String password, String firstname, String lastname, String CIN, String ville, String adresse, String email, String phone, Date dateNaissance) {

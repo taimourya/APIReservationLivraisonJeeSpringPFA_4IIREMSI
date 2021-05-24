@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE_ASSISTANT", discriminatorType = DiscriminatorType.STRING, length = 4)
 @DiscriminatorValue("ASSI")

@@ -8,9 +8,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
 @DiscriminatorValue("CLIE")
 public class Client extends ParticulierInfo {
 
