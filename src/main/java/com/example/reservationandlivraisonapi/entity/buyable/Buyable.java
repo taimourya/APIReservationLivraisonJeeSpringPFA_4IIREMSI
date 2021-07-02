@@ -3,11 +3,16 @@ package com.example.reservationandlivraisonapi.entity.buyable;
 import com.example.reservationandlivraisonapi.entity.acteurs.EntrepriseInfo;
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import com.example.reservationandlivraisonapi.entity.acteurs.User;
+import com.example.reservationandlivraisonapi.entity.commande.Commande;
+import com.example.reservationandlivraisonapi.entity.commande.CommandeBuyable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -16,7 +21,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Buyable {
+public abstract class Buyable implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +32,10 @@ public abstract class Buyable {
 
 	@ManyToOne
 	private Restaurant restaurant;
+
+	@OneToMany(mappedBy = "buyable")
+	@JsonIgnore
+	private Collection<CommandeBuyable> commandeBuyables = new ArrayList<>();;
 
 
 

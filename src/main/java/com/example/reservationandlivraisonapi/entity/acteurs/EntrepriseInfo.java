@@ -23,7 +23,7 @@ public abstract class EntrepriseInfo extends User {
 
 	public EntrepriseInfo(Integer user_id, String username, String password, String ville, String adresse,
 						  String name, String phone) {
-		super(user_id, username, password);
+		super(user_id, username, password, null);
 		this.ville = ville;
 		this.adresse = adresse;
 		this.latitude = 0;

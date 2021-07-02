@@ -1,10 +1,13 @@
 package com.example.reservationandlivraisonapi.entity.acteurs;
 
 
+import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -17,6 +20,9 @@ public class Assistant extends ParticulierInfo {
 
 
 	private Date dateContrat;
+	@OneToMany(mappedBy = "assistant")
+	@JsonIgnore
+	private Collection<Reclamation> reclamations;
 	/*public Reclamation m_Reclamation;
 	public Conversation m_Conversation;*/
 

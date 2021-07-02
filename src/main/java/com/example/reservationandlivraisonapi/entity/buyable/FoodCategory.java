@@ -1,6 +1,7 @@
 package com.example.reservationandlivraisonapi.entity.buyable;
 
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,11 +19,11 @@ import java.util.Collection;
 public class FoodCategory extends Category {
 
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-    private Collection<Food> items;
+    @OneToMany(mappedBy = "category")
+    @JsonIgnore
+    private Collection<Food> items = new ArrayList<>();
 
-    public FoodCategory(Integer id, String name, Restaurant restaurant) {
-        super(id, name, restaurant);
-        this.items = items;
+    public FoodCategory(String name, Restaurant restaurant) {
+        super(name, restaurant);
     }
 }

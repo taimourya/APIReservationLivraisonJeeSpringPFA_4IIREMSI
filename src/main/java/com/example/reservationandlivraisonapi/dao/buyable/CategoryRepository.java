@@ -1,4 +1,4 @@
-package com.example.reservationandlivraisonapi.dao;
+package com.example.reservationandlivraisonapi.dao.buyable;
 
 import com.example.reservationandlivraisonapi.entity.buyable.Category;
 import com.example.reservationandlivraisonapi.entity.buyable.DrinkCategory;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+public interface CategoryRepository extends JpaRepository<Category, String> {
 
     @Query("SELECT f from FoodCategory f")
     Collection<FoodCategory> findAllFoodCategories();

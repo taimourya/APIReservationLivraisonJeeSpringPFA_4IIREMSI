@@ -1,5 +1,6 @@
-package com.example.reservationandlivraisonapi.dao;
+package com.example.reservationandlivraisonapi.dao.buyable;
 
+import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
 import com.example.reservationandlivraisonapi.entity.buyable.Drink;
 import com.example.reservationandlivraisonapi.entity.buyable.Food;
@@ -25,4 +26,7 @@ public interface BuyableRepository extends JpaRepository<Buyable, Integer> {
 
     @Query("SELECT b from Buyable b where b.restaurant.user_id = ?1")
     Collection<Buyable> findBuyableRestaurant(Integer restaurant_id);
+
+
+    Collection<Buyable> findByRestaurantAndNameContains(Restaurant restaurant, String mc);
 }

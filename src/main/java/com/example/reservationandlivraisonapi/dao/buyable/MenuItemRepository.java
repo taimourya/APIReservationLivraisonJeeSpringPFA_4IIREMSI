@@ -1,4 +1,4 @@
-package com.example.reservationandlivraisonapi.dao;
+package com.example.reservationandlivraisonapi.dao.buyable;
 
 import com.example.reservationandlivraisonapi.entity.buyable.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;

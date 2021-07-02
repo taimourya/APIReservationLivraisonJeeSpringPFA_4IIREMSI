@@ -3,6 +3,7 @@ package com.example.reservationandlivraisonapi.entity.buyable;
 
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import com.example.reservationandlivraisonapi.entity.acteurs.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,10 +21,11 @@ public abstract class Item extends Buyable {
 
 
     @OneToMany(mappedBy = "item")
-    private Collection<MenuItem> menuItems;
+    @JsonIgnore
+    private Collection<MenuItem> menuItems = new ArrayList<>();
 
     public Item(Integer id, String name, float price, String image, Restaurant restaurant) {
-        super(id, name, price, image, restaurant);
+        super(id, name, price, image, restaurant, null);
         this.menuItems = menuItems;
     }
 }

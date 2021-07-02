@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.util.Collection;
 
@@ -17,7 +18,7 @@ import java.util.Collection;
 public class Drink extends Item {
 
 	@ManyToOne
-	private DrinkCategory category;
+	private Category category; //DrinkCategory
 
 	public Drink(Integer id, String name, float price, String image, Restaurant restaurant, DrinkCategory category) {
 		super(id, name, price, image, restaurant);

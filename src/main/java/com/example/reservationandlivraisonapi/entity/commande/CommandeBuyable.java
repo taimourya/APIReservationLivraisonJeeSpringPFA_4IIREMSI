@@ -1,24 +1,27 @@
-package com.example.reservationandlivraisonapi.entity.buyable;
+package com.example.reservationandlivraisonapi.entity.commande;
 
+
+import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuItem  implements Serializable {
-
+public class CommandeBuyable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private int qtn;
 	@ManyToOne
-	private Buyable menu;
+	private Commande commande;
 	@ManyToOne
-	private Buyable item;
+	private Buyable buyable;
+
+
 
 }

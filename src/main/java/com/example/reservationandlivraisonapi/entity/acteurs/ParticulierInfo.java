@@ -29,7 +29,7 @@ public abstract class ParticulierInfo extends User {
 
 	public ParticulierInfo(Integer user_id, String username, String password, String firstname, String lastname, String CIN,
 						   String ville, String adresse, String email, String phone, Date dateNaissance) {
-		super(user_id, username, password);
+		super(user_id, username, password, null);
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.CIN = CIN;

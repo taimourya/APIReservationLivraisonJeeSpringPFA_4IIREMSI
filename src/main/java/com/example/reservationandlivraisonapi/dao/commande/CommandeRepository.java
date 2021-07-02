@@ -1,0 +1,15 @@
+package com.example.reservationandlivraisonapi.dao.commande;
+
+import com.example.reservationandlivraisonapi.entity.commande.Commande;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
+
+@Repository
+public interface CommandeRepository extends JpaRepository<Commande, Integer> {
+
+
+
+}

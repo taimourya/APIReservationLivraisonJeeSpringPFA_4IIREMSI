@@ -1,4 +1,4 @@
-package com.example.reservationandlivraisonapi.dao;
+package com.example.reservationandlivraisonapi.dao.acteurs;
 
 import com.example.reservationandlivraisonapi.entity.acteurs.*;
 import org.springframework.data.jpa.repository.JpaRepository;

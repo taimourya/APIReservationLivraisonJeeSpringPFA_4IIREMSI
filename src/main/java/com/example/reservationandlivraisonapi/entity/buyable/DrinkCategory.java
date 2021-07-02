@@ -2,13 +2,11 @@ package com.example.reservationandlivraisonapi.entity.buyable;
 
 
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,11 +17,11 @@ import java.util.Collection;
 public class DrinkCategory extends Category {
 
 
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-	private Collection<Drink> items;
+	@OneToMany(mappedBy = "category")
+	@JsonIgnore
+	private Collection<Drink> items = new ArrayList<>();
 
-	public DrinkCategory(Integer id, String name, Restaurant restaurant) {
-		super(id, name, restaurant);
-		this.items = items;
+	public DrinkCategory(String name, Restaurant restaurant) {
+		super(name, restaurant);
 	}
 }
