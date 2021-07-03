@@ -63,7 +63,6 @@ public class RestaurantController {
     @GetMapping("/buyable")
     public Buyable getBuyable(@RequestParam int id) throws Exception {
 
-
         return restaurantMetier.consulterBuyable(id);
     }
 

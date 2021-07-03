@@ -1,7 +1,7 @@
 package com.example.reservationandlivraisonapi.controller;
 
+import com.example.reservationandlivraisonapi.Form.LoginForm;
 import com.example.reservationandlivraisonapi.Form.ReclamationForm;
-import com.example.reservationandlivraisonapi.dao.acteurs.UserRepository;
 import com.example.reservationandlivraisonapi.entity.acteurs.User;
 import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
 import com.example.reservationandlivraisonapi.metier.user.IUserMetier;
@@ -24,5 +24,8 @@ public class UserController {
         return userMetier.reclamer(reclamationForm.getUser_id(), reclamationForm.getMessage());
     }
 
-
+    @PostMapping("/user/login")
+    public User login(@RequestBody LoginForm loginForm) throws Exception {
+        return userMetier.login(loginForm.getUsername(), loginForm.getPassword(), loginForm.getSource());
+    }
 }

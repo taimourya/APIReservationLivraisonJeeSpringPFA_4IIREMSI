@@ -29,4 +29,7 @@ public interface BuyableRepository extends JpaRepository<Buyable, Integer> {
 
 
     Collection<Buyable> findByRestaurantAndNameContains(Restaurant restaurant, String mc);
+
+    Collection<Buyable> findByNameContains(String mc);
+
 }

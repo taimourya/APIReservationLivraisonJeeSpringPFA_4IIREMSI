@@ -12,6 +12,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     //diagrame de navigation
 
+    User findByUsernameAndPassword(String username, String password);
+
+
     @Query("SELECT l from Livreur l")
     Collection<Livreur> findAllLivreurs();
 

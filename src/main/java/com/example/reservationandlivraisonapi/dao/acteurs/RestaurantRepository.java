@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
 
-
 }

@@ -1,6 +1,7 @@
 package com.example.reservationandlivraisonapi.entity.commande;
 
 
+import com.example.reservationandlivraisonapi.entity.acteurs.Client;
 import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,13 @@ public class CommandeBuyable {
 	private Commande commande;
 	@ManyToOne
 	private Buyable buyable;
+	@ManyToOne
+	private Client client;
 
-
-
+	public CommandeBuyable(Integer id, int qtn, Commande commande, Buyable buyable) {
+		this.id = id;
+		this.qtn = qtn;
+		this.commande = commande;
+		this.buyable = buyable;
+	}
 }

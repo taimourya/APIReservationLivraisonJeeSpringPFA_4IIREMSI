@@ -52,9 +52,9 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
     public void run(String... args) throws ParseException {
 
 
-        userRepository.save(new Client(null, "client1", "123", "client1",
+        userRepository.save(new Client(null, "cli1", "123", "client1",
                 "client1","cin", "ville", "adrss", "taimourya@gmail.com" ,
-                "+21243334135", new Date(), "code promo"));
+                "+21243334135", new Date(), "abcd123abcd"));
 
         userRepository.save(new Livreur(null, "livreur1", "123", "livreur1",
                 "livreur1","cin", "ville", "adrss", "taimourya@gmail.com" ,
@@ -68,8 +68,12 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
                 "Administrateur","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date()));
 
-        userRepository.save(new Restaurant(null, "restaurant1", "123", "ville", "adr",
+        userRepository.save(new Restaurant(null, "rest1", "123", "ville", "adr",
                 "restaunt1","+21243334135" ));
+        userRepository.save(new Restaurant(null, "rest2", "123", "ville", "adr",
+                "restaunt2","+21243334135" ));
+        userRepository.save(new Restaurant(null, "rest3", "123", "ville", "adr",
+                "restaunt3","+21243334135" ));
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -96,21 +100,21 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
         buyableRepository.save(new Drink(null, "Pepsi", 5, "image",
                 (Restaurant) userRepository.findById(restaurant_id).get(),
                 (DrinkCategory) categoryRepository.findById("Soda").get()));
-        buyableRepository.save(new Drink(null, "Jus orrange", 5, "image",
+        buyableRepository.save(new Drink(null, "Jus orrange", 10, "image",
                 (Restaurant) userRepository.findById(restaurant_id).get(),
                 (DrinkCategory) categoryRepository.findById("Jus").get()));
 
 
-        buyableRepository.save(new Food(null, "Tacos nuget", 5, "image",
+        buyableRepository.save(new Food(null, "Tacos nuget", 28, "image",
                 (Restaurant) userRepository.findById(restaurant_id).get(),
                 (FoodCategory) categoryRepository.findById("Tacos").get()));
-        buyableRepository.save(new Food(null, "Tacos poulet", 5, "image",
+        buyableRepository.save(new Food(null, "Tacos poulet", 25, "image",
                 (Restaurant) userRepository.findById(restaurant_id).get(),
                 (FoodCategory) categoryRepository.findById("Tacos").get()));
-        buyableRepository.save(new Food(null, "Tacos viande hacher", 5, "image",
+        buyableRepository.save(new Food(null, "Tacos viande hacher", 25, "image",
                 (Restaurant) userRepository.findById(restaurant_id).get(),
                 (FoodCategory) categoryRepository.findById("Tacos").get()));
-        buyableRepository.save(new Food(null, "Chesy burger", 5, "image",
+        buyableRepository.save(new Food(null, "Chesy burger", 23, "image",
                 (Restaurant) userRepository.findById(restaurant_id).get(),
                 (FoodCategory) categoryRepository.findById("Hamburger").get()));
 

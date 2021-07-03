@@ -12,6 +12,6 @@ public interface IUserMetier {
 	public Reclamation reclamer(int user_id, String message) throws Exception;
 	public void replyConversation(int user_id, String message);
 
-	
+	public User login(String username, String passwd, String source) throws Exception;
 
 }

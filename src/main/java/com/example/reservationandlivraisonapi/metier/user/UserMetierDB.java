@@ -5,9 +5,7 @@ import com.example.reservationandlivraisonapi.dao.acteurs.ParticulierInfoReposit
 import com.example.reservationandlivraisonapi.dao.acteurs.RestaurantRepository;
 import com.example.reservationandlivraisonapi.dao.acteurs.UserRepository;
 import com.example.reservationandlivraisonapi.dao.reclamation.ReclamationRepository;
-import com.example.reservationandlivraisonapi.entity.acteurs.EntrepriseInfo;
-import com.example.reservationandlivraisonapi.entity.acteurs.ParticulierInfo;
-import com.example.reservationandlivraisonapi.entity.acteurs.User;
+import com.example.reservationandlivraisonapi.entity.acteurs.*;
 import com.example.reservationandlivraisonapi.entity.commande.Commande;
 import com.example.reservationandlivraisonapi.entity.reclamation.Conversation;
 import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
@@ -50,5 +48,23 @@ public class UserMetierDB implements IUserMetier{
     @Override
     public void replyConversation(int user_id, String message) {
 
+    }
+
+    @Override
+    public User login(String username, String passwd, String source) throws Exception {
+        User user = userRepository.findByUsernameAndPassword(username, passwd);
+        if(user == null)
+            throw new Exception("username or password incorrect");
+        if(source.equalsIgnoreCase("restaurant") && user instanceof Restaurant)
+            return user;
+        if(source.equalsIgnoreCase("livreur") && user instanceof Livreur)
+            return user;
+        if(source.equalsIgnoreCase("assistant") && user instanceof Assistant)
+            return user;
+        if(source.equalsIgnoreCase("client") && user instanceof Client)
+            return user;
+        if(source.equalsIgnoreCase("admin") && user instanceof Client)
+            return user;
+        throw new Exception("Acces refusé");
     }
 }

@@ -1,5 +1,6 @@
 package com.example.reservationandlivraisonapi.dao.commande;
 
+import com.example.reservationandlivraisonapi.entity.acteurs.Client;
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import com.example.reservationandlivraisonapi.entity.commande.Livraison;
 import com.example.reservationandlivraisonapi.entity.commande.Reservation;
@@ -15,4 +16,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
 
     public Collection<Reservation> findByRestaurantAndDateReservationAfter(Restaurant restaurant, Date date);
+
+    public Collection<Reservation> findByClientAndDateReservationAfter(Client client, Date date);
 }
