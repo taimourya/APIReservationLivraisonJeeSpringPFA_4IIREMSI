@@ -1,6 +1,7 @@
 package com.example.reservationandlivraisonapi.dao.commande;
 
 import com.example.reservationandlivraisonapi.entity.acteurs.Client;
+import com.example.reservationandlivraisonapi.entity.acteurs.Livreur;
 import com.example.reservationandlivraisonapi.entity.commande.Commande;
 import com.example.reservationandlivraisonapi.entity.commande.Livraison;
 import com.example.reservationandlivraisonapi.entity.commande.Reservation;
@@ -16,5 +17,14 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Integer> {
 
     @Query("SELECT l FROM Livraison l WHERE l.client = ?1 AND l.stat < 3")
     Collection<Livraison> findByClientEnCours(Client client);
+
+    @Query("SELECT l FROM Livraison l WHERE l.livreur = ?1 AND l.stat < 3")
+    Livraison findCurrentLivraison(Livreur livreur);
+
+
+    @Query("SELECT l FROM Livraison l WHERE l.stat = 0")
+    Livraison findLivraisonNonPris();
+
+    Collection<Livraison> findByLivreur(Livreur livreur);
 
 }

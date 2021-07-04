@@ -2,6 +2,7 @@ package com.example.reservationandlivraisonapi.dao.commande;
 
 import com.example.reservationandlivraisonapi.entity.acteurs.Client;
 import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
+import com.example.reservationandlivraisonapi.entity.commande.Commande;
 import com.example.reservationandlivraisonapi.entity.commande.CommandeBuyable;
 import com.example.reservationandlivraisonapi.entity.commande.Livraison;
 import com.example.reservationandlivraisonapi.entity.commande.Reservation;
@@ -23,5 +24,6 @@ public interface CommandeBuyableRepository extends JpaRepository<CommandeBuyable
     @Query("SELECT c FROM CommandeBuyable c WHERE c.client = ?1")
     Collection<CommandeBuyable> getPanier(Client client);
 
+    public Collection<CommandeBuyable> findByCommande(Commande commande);
 
 }

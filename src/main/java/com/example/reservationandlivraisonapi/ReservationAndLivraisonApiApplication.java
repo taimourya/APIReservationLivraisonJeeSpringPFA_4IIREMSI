@@ -56,7 +56,7 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
                 "client1","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), "abcd123abcd"));
 
-        userRepository.save(new Livreur(null, "livreur1", "123", "livreur1",
+        userRepository.save(new Livreur(null, "liv1", "123", "livreur1",
                 "livreur1","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), new Date(), "moto"));
 

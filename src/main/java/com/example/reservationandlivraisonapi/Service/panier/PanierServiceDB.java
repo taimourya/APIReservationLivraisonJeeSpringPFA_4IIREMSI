@@ -18,10 +18,7 @@ import com.example.reservationandlivraisonapi.metier.user.IUserMetier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class PanierServiceDB implements IPanierService {
@@ -101,12 +98,14 @@ public class PanierServiceDB implements IPanierService {
     public Livraison toLivraison(Client client, float longitude, float latitude) throws Exception {
 
         Collection<CommandeBuyable> commandeBuyables = commandeBuyableRepository.getPanier(client);
+        Livraison livraison = new Livraison(null, new Date(), client, commandeBuyables,
+                null, 0, longitude, latitude, null);
+        livraisonRepository.save(livraison);
         for (CommandeBuyable c : commandeBuyables) {
             c.setClient(null);
+            c.setCommande(livraison);
             commandeBuyableRepository.save(c);
         }
-        Livraison livraison = new Livraison(null, new Date(), client, commandeBuyables,
-                                        null, 0, longitude, latitude, null);
 
         return livraisonRepository.save(livraison);
     }
@@ -118,13 +117,15 @@ public class PanierServiceDB implements IPanierService {
         if(commandeBuyables.size() == 0)
             throw new Exception("panier vide");
         Restaurant restaurant = commandeBuyables.get(0).getBuyable().getRestaurant();
+        Reservation reservation  = new Reservation(null, new Date(), client, new ArrayList<>(), restaurant, dateReservation);
+        reservationRepository.save(reservation);
         for (CommandeBuyable c : commandeBuyables) {
             if(c.getBuyable().getRestaurant().getUser_id() != restaurant.getUser_id())
                 throw new Exception("une reservation doit contenir des items d'un meme restaurant");
             c.setClient(null);
+            c.setCommande(reservation);
             commandeBuyableRepository.save(c);
         }
-        Reservation reservation  = new Reservation(null, new Date(), client, commandeBuyables, restaurant, dateReservation);
 
         return reservationRepository.save(reservation);
     }
