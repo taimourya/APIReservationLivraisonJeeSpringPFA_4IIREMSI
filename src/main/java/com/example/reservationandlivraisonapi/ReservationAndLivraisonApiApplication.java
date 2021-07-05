@@ -52,7 +52,7 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
     public void run(String... args) throws ParseException {
 
 
-        userRepository.save(new Client(null, "cli1", "123", "client1",
+        /*userRepository.save(new Client(null, "cli1", "123", "client1",
                 "client1","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), "abcd123abcd"));
 
@@ -60,8 +60,8 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
                 "livreur1","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), new Date(), "moto"));
 
-        userRepository.save(new Assistant(null, "Assistant", "123", "Assistant",
-                "Assistant","cin", "ville", "adrss", "taimourya@gmail.com" ,
+        userRepository.save(new Assistant(null, "assi1", "123", "Assistant 1",
+                "Assistant 1","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), new Date()));
 
         userRepository.save(new Administrateur(null, "Administrateur", "123", "Administrateur",
@@ -192,7 +192,7 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
         commandeBuyableRepository.save(new CommandeBuyable(null, 4,
                 commandeRepository.findById(3).get(),
                 buyableRepository.findById(6).get()
-        ));
+        ));*/
 
 
 

@@ -20,7 +20,7 @@ public class Reclamation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String message;
-	private int stat;
+	private int stat; //-1 recherche only expert //0 recherche all //1 en cours de traitement // 2 resolue
 	private Date date;
 	@ManyToOne
 	private User user;

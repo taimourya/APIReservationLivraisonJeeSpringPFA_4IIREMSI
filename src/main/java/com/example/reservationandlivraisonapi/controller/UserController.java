@@ -1,14 +1,20 @@
 package com.example.reservationandlivraisonapi.controller;
 
 import com.example.reservationandlivraisonapi.Form.LoginForm;
+import com.example.reservationandlivraisonapi.Form.MessageForm;
 import com.example.reservationandlivraisonapi.Form.ReclamationForm;
 import com.example.reservationandlivraisonapi.entity.acteurs.User;
+import com.example.reservationandlivraisonapi.entity.reclamation.Conversation;
+import com.example.reservationandlivraisonapi.entity.reclamation.Message;
 import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
 import com.example.reservationandlivraisonapi.metier.user.IUserMetier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
+@CrossOrigin()
 public class UserController {
 
     @Autowired
@@ -27,5 +33,18 @@ public class UserController {
     @PostMapping("/user/login")
     public User login(@RequestBody LoginForm loginForm) throws Exception {
         return userMetier.login(loginForm.getUsername(), loginForm.getPassword(), loginForm.getSource());
+    }
+
+    @GetMapping("/conversation/check")
+    public Conversation checkConversation(@RequestParam() int user_id) throws Exception {
+        return userMetier.checkConversation(user_id);
+    }
+    @GetMapping("/conversation/messages")
+    public Collection<Message> getMessages(@RequestParam() int conversation_id) throws Exception {
+        return userMetier.consulterMessagesConversation(conversation_id);
+    }
+    @PostMapping("/conversation/message/send")
+    public Message createMessage(@RequestBody MessageForm messageForm) throws Exception {
+        return userMetier.sendMessage(messageForm.getUser_id(), messageForm.getMessage(), messageForm.getConversation_id());
     }
 }

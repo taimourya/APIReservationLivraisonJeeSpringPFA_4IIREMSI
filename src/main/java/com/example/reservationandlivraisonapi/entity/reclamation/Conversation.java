@@ -3,6 +3,7 @@ package com.example.reservationandlivraisonapi.entity.reclamation;
 
 import com.example.reservationandlivraisonapi.entity.acteurs.Assistant;
 import com.example.reservationandlivraisonapi.entity.acteurs.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,10 @@ public class Conversation {
 	@ManyToOne
 	private Assistant assistant;
 	@OneToMany(mappedBy = "conversation")
+	@JsonIgnore
 	private Collection<Message> messages;
 
-
+	@OneToOne(mappedBy = "conversation")
+	@JsonIgnore
+	private Reclamation reclamation;
 }

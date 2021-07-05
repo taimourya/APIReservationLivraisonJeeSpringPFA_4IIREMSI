@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @RestController
+@CrossOrigin()
 public class ClientController {
 
     @Autowired
@@ -51,7 +52,7 @@ public class ClientController {
     }
 
     @GetMapping("/menu")
-    public Collection<Buyable> getMenu(@RequestParam(required = false, defaultValue = "") String mc) throws Exception {
+    public Collection<Buyable> getMenu(@RequestParam(required = false, defaultValue = "") String mc) {
         return clientMetier.consulterMenu(mc);
     }
 
