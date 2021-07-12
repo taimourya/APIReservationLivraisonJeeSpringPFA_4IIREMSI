@@ -43,6 +43,14 @@ public class UserMetierDB implements IUserMetier{
     }
 
     @Override
+    public User consulterUser(String username) throws Exception {
+        User user = userRepository.findByUsername(username);
+        if(user == null)
+            throw new Exception("utilisateur introuvable");
+        return user;
+    }
+
+    @Override
     public Reclamation reclamer(int user_id, String message) throws Exception {
         User user = consulterUser(user_id);
         Reclamation reclamation = new Reclamation(null, message, 0, new Date(), user, null, null);

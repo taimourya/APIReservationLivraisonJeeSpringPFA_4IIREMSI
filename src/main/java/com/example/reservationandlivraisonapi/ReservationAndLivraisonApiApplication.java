@@ -5,10 +5,7 @@ import com.example.reservationandlivraisonapi.dao.buyable.*;
 import com.example.reservationandlivraisonapi.dao.commande.CommandeBuyableRepository;
 import com.example.reservationandlivraisonapi.dao.commande.CommandeRepository;
 import com.example.reservationandlivraisonapi.entity.acteurs.*;
-import com.example.reservationandlivraisonapi.entity.buyable.Drink;
-import com.example.reservationandlivraisonapi.entity.buyable.DrinkCategory;
-import com.example.reservationandlivraisonapi.entity.buyable.Food;
-import com.example.reservationandlivraisonapi.entity.buyable.FoodCategory;
+import com.example.reservationandlivraisonapi.entity.buyable.*;
 import com.example.reservationandlivraisonapi.entity.commande.CommandeBuyable;
 import com.example.reservationandlivraisonapi.entity.commande.Livraison;
 import com.example.reservationandlivraisonapi.entity.commande.Reservation;
@@ -16,12 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @SpringBootApplication
 @Transactional
@@ -44,36 +45,53 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
     @Autowired
     CommandeBuyableRepository commandeBuyableRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    @Bean
+    public BCryptPasswordEncoder getEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(ReservationAndLivraisonApiApplication.class, args);
+    }
+
+    public static String generateRandomString(int len) {
+        String chars = "ABCDEFGHIJKLMNO PQRSTUVWXYZ abcdefghijk"
+                +"lmnop qrstuvwxyz ";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
     }
 
     @Override
     public void run(String... args) throws ParseException {
 
-
-        userRepository.save(new Client(null, "cli1", "123", "client1",
-                "client1","cin", "ville", "adrss", "taimourya@gmail.com" ,
+        String pass = encoder.encode("123");
+        userRepository.save(new Client(null, "yahya", pass, "yahya",
+                "taimourya","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), "abcd123abcd"));
 
-        userRepository.save(new Livreur(null, "liv1", "123", "livreur1",
-                "livreur1","cin", "ville", "adrss", "taimourya@gmail.com" ,
+        userRepository.save(new Livreur(null, "diyaa", pass, "diyaa",
+                "benyas","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), new Date(), "moto"));
 
-        userRepository.save(new Assistant(null, "assi1", "123", "Assistant 1",
-                "Assistant 1","cin", "ville", "adrss", "taimourya@gmail.com" ,
+        userRepository.save(new Assistant(null, "hamza", pass, "hamza",
+                "Elhattab","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date(), new Date()));
 
-        userRepository.save(new Administrateur(null, "Administrateur", "123", "Administrateur",
+        userRepository.save(new Administrateur(null, "Administrateur", pass, "Administrateur",
                 "Administrateur","cin", "ville", "adrss", "taimourya@gmail.com" ,
                 "+21243334135", new Date()));
 
-        userRepository.save(new Restaurant(null, "rest1", "123", "ville", "adr",
-                "restaunt1","+21243334135" ));
-        userRepository.save(new Restaurant(null, "rest2", "123", "ville", "adr",
-                "restaunt2","+21243334135" ));
-        userRepository.save(new Restaurant(null, "rest3", "123", "ville", "adr",
-                "restaunt3","+21243334135" ));
+        userRepository.save(new Restaurant(null, "Tacos", pass, "ville", "adr",
+                "Tacos De lyon","+21243334135" ));
+
+
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -196,6 +214,79 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
 
 
 
+        String[] restnames = {
+                "MC Donalds", "Burger King", "Cosamiya", "Mamo food",
+                "Ahmed chef", "Nkoa", "Atelier Oriental", "Riad restaurant",
+                "Iloli", "Boccaccio", "Don Camillo", "Le petit rocher",
+                "Beach mama", "Basmane", "ICebeery", "Kabuki",
+                "KFC", "Luigi", "Cosamiya", "Nespresso",
+        };
+        for(int i = 1; i < restnames.length + 1; i++) {
+            userRepository.save(new Client(null, "cli"+i, pass, "cli"+i,
+                    "cli"+i,"cin", "ville", "adrss", "taimourya@gmail.com" ,
+                    "+21243334135", new Date(), "abcd123abcd"+i));
+
+            userRepository.save(new Livreur(null, "liv"+i, pass, "liv"+i,
+                    "liv"+i,"cin", "ville", "adrss", "taimourya@gmail.com" ,
+                    "+21243334135", new Date(), new Date(), "moto"));
+
+            userRepository.save(new Assistant(null, "assi"+i, pass, "assi"+i,
+                    "assi"+i,"cin", "ville", "adrss", "taimourya@gmail.com" ,
+                    "+21243334135", new Date(), new Date()));
+
+            userRepository.save(new Administrateur(null, "admin"+i, pass, "admin"+i,
+                    "admin"+i,"cin", "ville", "adrss", "taimourya@gmail.com" ,
+                    "+21243334135", new Date()));
+
+            Restaurant r = userRepository.save(new Restaurant(null, "rest"+i, pass, "ville", "adr",
+                    restnames[i-1],"+21243334135" ));
+            for(int j = 0; j < 5; j++) {
+                DrinkCategory dc = categoryRepository.save(
+                        categoryRepository.save(
+                                new DrinkCategory("drinkcat"+(i+j)*i, r)
+                        )
+                );
+                for(int k = 0; k < 15; k++) {
+                    buyableRepository.save(
+                            new Drink(
+                                    null, generateRandomString((int)(Math.random() * 8)),
+                                    (float) (Math.random() * 100),
+                                    "image",
+                                    r,
+                                    dc
+                            )
+                    );
+                }
+
+                FoodCategory fc = categoryRepository.save(
+                        categoryRepository.save(
+                                new FoodCategory("foodcat"+(i+j)*i, r)
+                        )
+                );
+
+                for(int k = 0; k < 15; k++) {
+                    buyableRepository.save(
+                            new Food(
+                                    null, generateRandomString((int)(Math.random() * 8)),
+                                    (float) (Math.random() * 100),
+                                    "image",
+                                    r,
+                                    fc
+                            )
+                    );
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         System.out.println("--------------------------- ALl users -----------------------------------");
         userRepository.findAll().forEach(user -> System.out.println(user.getUsername()));
         System.out.println("--------------------------- ALl livreurs -----------------------------------");
@@ -266,6 +357,8 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("-----------------------------------------------------------------------------------------");
+
+
 
     }
 }

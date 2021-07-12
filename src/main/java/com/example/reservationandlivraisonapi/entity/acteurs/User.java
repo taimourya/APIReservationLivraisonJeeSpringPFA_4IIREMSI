@@ -16,13 +16,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE_USER", discriminatorType = DiscriminatorType.STRING, length = 4)
-public abstract class User {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer user_id;
+	@Column(unique = true)
 	private String username;
-	@JsonIgnore
+
 	private String password;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore

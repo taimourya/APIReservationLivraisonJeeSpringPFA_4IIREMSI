@@ -9,6 +9,8 @@ import com.example.reservationandlivraisonapi.entity.reclamation.Message;
 import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
 import com.example.reservationandlivraisonapi.metier.user.IUserMetier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -23,6 +25,13 @@ public class UserController {
     @GetMapping("/user")
     public User getUser(@RequestParam() Integer id) throws Exception {
         return userMetier.consulterUser(id);
+    }
+
+    @GetMapping("/profile")
+    public User getProfile() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userMetier.consulterUser(username);
     }
 
     @PostMapping("/create/reclamation")

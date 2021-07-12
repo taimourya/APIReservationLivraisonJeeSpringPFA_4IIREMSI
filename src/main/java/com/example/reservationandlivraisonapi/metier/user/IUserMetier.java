@@ -11,6 +11,7 @@ import java.util.Collection;
 public interface IUserMetier {
 
 	User consulterUser(int user_id) throws Exception;
+	User consulterUser(String username) throws Exception;
 	Reclamation reclamer(int user_id, String message) throws Exception;
 	User login(String username, String passwd, String source) throws Exception;
 	Conversation checkConversation(int user_id) throws Exception;

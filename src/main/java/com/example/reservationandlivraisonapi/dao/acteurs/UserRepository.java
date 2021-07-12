@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     //diagrame de navigation
 
     User findByUsernameAndPassword(String username, String password);
-
+    User findByUsername(String username);
 
     @Query("SELECT l from Livreur l")
     Collection<Livreur> findAllLivreurs();
