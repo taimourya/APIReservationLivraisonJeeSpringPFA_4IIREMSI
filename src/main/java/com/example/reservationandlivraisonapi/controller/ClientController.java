@@ -2,7 +2,9 @@ package com.example.reservationandlivraisonapi.controller;
 
 import com.example.reservationandlivraisonapi.Form.CodePromoForm;
 import com.example.reservationandlivraisonapi.Form.LivraisonForm;
+import com.example.reservationandlivraisonapi.Form.RegisterForm;
 import com.example.reservationandlivraisonapi.Form.ReservationForm;
+import com.example.reservationandlivraisonapi.entity.acteurs.Client;
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
 import com.example.reservationandlivraisonapi.entity.commande.Commande;
@@ -25,6 +27,13 @@ public class ClientController {
 
     @Autowired
     IClientMetier clientMetier;
+
+
+    @GetMapping("/register")
+    public Client register(@RequestBody RegisterForm registerForm) throws Exception {
+
+        return clientMetier.inscription(registerForm.getUsername(), registerForm.getPassword(), registerForm.getPasswordConfirm());
+    }
 
 
     @GetMapping("/client/codePromo")

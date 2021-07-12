@@ -23,6 +23,7 @@ import com.example.reservationandlivraisonapi.metier.restaurant.IRestaurantMetie
 import com.example.reservationandlivraisonapi.metier.restaurant.RestaurantMetierDB;
 import com.example.reservationandlivraisonapi.metier.user.IUserMetier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -57,11 +58,18 @@ public class ClientMetierDB  implements IClientMetier{
     NoteRepository noteRepository;
     @Autowired
     ParaignageRepository paraignageRepository;
-
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Override
-    public void Inscription(String username, String password, String passwordConfirm, String email, String adresse, String telephone, String firstname, String lastname, String CIN, Date dateNaissance) {
-
+    public Client inscription(String username, String password, String confimPassword) throws Exception {
+        if(!password.equals(confimPassword)) throw new Exception("les mots de passe ne se resemble pas ! ");
+        return clientRepository.save(
+                new Client(null, username, encoder.encode(password),
+                        null, null, null, null,
+                        null, null, null,
+                        null, username+ " " + username)
+        );
     }
 
     @Override

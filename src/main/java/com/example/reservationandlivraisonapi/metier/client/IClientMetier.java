@@ -1,5 +1,6 @@
 package com.example.reservationandlivraisonapi.metier.client;
 
+import com.example.reservationandlivraisonapi.entity.acteurs.Client;
 import com.example.reservationandlivraisonapi.entity.acteurs.Restaurant;
 import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
 import com.example.reservationandlivraisonapi.entity.commande.Commande;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public interface IClientMetier {
 
-	public void Inscription(String username, String password, String passwordConfirm, String email, String adresse, String telephone, String firstname, String lastname, String CIN, Date dateNaissance);
+	public Client inscription(String username, String password, String confimPassword) throws Exception;
 
 	public Collection<Buyable> consulterMenu(String mc);
 	public Collection<Buyable> consulterMenuRestaurant(int restaurant_id, String mc) throws Exception;
