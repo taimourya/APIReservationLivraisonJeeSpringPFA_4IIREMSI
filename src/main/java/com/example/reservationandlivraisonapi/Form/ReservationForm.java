@@ -11,7 +11,5 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationForm implements Serializable {
-
-    private int client_id;
     private String dateReservation;
 }

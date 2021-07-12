@@ -10,7 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageForm implements Serializable {
-    private int user_id;
     private String message;
     private int conversation_id;
 }

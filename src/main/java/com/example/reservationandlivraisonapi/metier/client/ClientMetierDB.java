@@ -89,98 +89,104 @@ public class ClientMetierDB  implements IClientMetier{
     }
 
     @Override
-    public Livraison commanderLivraison(int client_id, float longitude, float latitude) throws Exception {
-        Client client = (Client) userMetier.consulterUser(client_id);
+    public Livraison commanderLivraison(float longitude, float latitude) throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         Livraison livraison = panierService.toLivraison(client, longitude, latitude);
         return commandeRepository.save(livraison);
     }
 
     @Override
-    public Reservation commanderReservation(int client_id, Date dateReservation) throws Exception {
-        Client client = (Client) userMetier.consulterUser(client_id);
+    public Reservation commanderReservation(Date dateReservation) throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         Reservation reservation = panierService.toReservation(client, dateReservation);
         return commandeRepository.save(reservation);
     }
 
     @Override
-    public Collection<Livraison> consulterLivraisonEnCours(int client_id) throws Exception {
-        Client client = (Client) userMetier.consulterUser(client_id);
+    public Collection<Livraison> consulterLivraisonEnCours() throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         return livraisonRepository.findByClientEnCours(client);
     }
 
     @Override
-    public Collection<Reservation> consulterReservationEnCours(int client_id) throws Exception {
-        Client client = (Client) userMetier.consulterUser(client_id);
+    public Collection<Reservation> consulterReservationEnCours() throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         return reservationRepository.findByClientAndDateReservationAfter(client, new Date());
     }
 
     @Override
-    public Note noterLivreur(int client_id, int livreur_id, String message, int etoile) throws Exception {
+    public Note noterLivreur(int livreur_id, String message, int etoile) throws Exception {
         Livreur livreur = (Livreur) userMetier.consulterUser(livreur_id);
-        Client client = (Client) userMetier.consulterUser(client_id);
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         Note note = new Note(null, message, etoile, null, livreur, client);
         return noteRepository.save(note);
     }
 
     @Override
-    public Note noterRestaurant(int client_id, int restaurant_id, String message, int etoile) throws Exception {
+    public Note noterRestaurant(int restaurant_id, String message, int etoile) throws Exception {
         Restaurant restaurant = (Restaurant) userMetier.consulterUser(restaurant_id);
-        Client client = (Client) userMetier.consulterUser(client_id);
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         Note note = new Note(null, message, etoile, restaurant, null, client);
         return noteRepository.save(note);
     }
 
     @Override
-    public String getCodePromo(int client_id) throws Exception {
-        Client client = (Client) userMetier.consulterUser(client_id);
+    public String getCodePromo() throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         return client.getCodePromo();
     }
 
     @Override
-    public Paraignage useCodePromo(int client_id, String codePromo) throws Exception {
-        Client parrainer = (Client) userMetier.consulterUser(client_id);
-        if(parrainer == null)
-            throw new Exception("code promo incorrect");
+    public Paraignage useCodePromo(String codePromo) throws Exception {
+        Client parrainer = (Client) userMetier.consulterAuthentificateUser();
         Client parraineur = clientRepository.findByCodePromo(codePromo);
+        if(parraineur == null)
+            throw new Exception("code promos incorrect");
         Paraignage paraignage = new Paraignage(null, parraineur, parrainer);
-        if(parrainer.equals(paraignage))
+        if(parrainer.getCodePromo().equals(parraineur.getCodePromo()))
             throw new Exception("paraignage impossible");
         return paraignageRepository.save(paraignage);
     }
 
     @Override
-    public Collection<Commande> consulterHistorique(int client_id) throws Exception {
-        Client client = (Client) userMetier.consulterUser(client_id);
+    public Collection<Commande> consulterHistorique() throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
         return client.getCommandes();
     }
 
     @Override
-    public PanierWithInfo consulterPanier(int client_id) throws Exception {
-        return panierService.toPanierWithInfo(client_id);
+    public PanierWithInfo consulterPanier() throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
+        return panierService.toPanierWithInfo(client.getUser_id());
     }
 
     @Override
-    public void ajouterAuPanier(int buyable_id, int qtn, int client_id) throws Exception {
-        panierService.add(buyable_id, qtn, client_id);
+    public void ajouterAuPanier(int buyable_id, int qtn) throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
+        panierService.add(buyable_id, qtn, client.getUser_id());
     }
 
     @Override
-    public void removeQtnPanier(int buyable_id, int qtn, int client_id) throws Exception {
-        panierService.remove(buyable_id, qtn, client_id);
+    public void removeQtnPanier(int buyable_id, int qtn) throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
+        panierService.remove(buyable_id, qtn, client.getUser_id());
     }
 
     @Override
-    public void supprimerDuPanier(int buyable_id, int client_id) throws Exception {
-        panierService.delete(buyable_id, client_id);
+    public void supprimerDuPanier(int buyable_id) throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
+        panierService.delete(buyable_id, client.getUser_id());
     }
 
     @Override
-    public void viderPanier(int client_id) throws Exception {
-        panierService.clear(client_id);
+    public void viderPanier() throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
+        panierService.clear(client.getUser_id());
     }
 
     @Override
-    public float totalPanier(int client_id) throws Exception {
-        return panierService.getTotal(client_id);
+    public float totalPanier() throws Exception {
+        Client client = (Client) userMetier.consulterAuthentificateUser();
+        return panierService.getTotal(client.getUser_id());
     }
 }

@@ -12,9 +12,10 @@ public interface IUserMetier {
 
 	User consulterUser(int user_id) throws Exception;
 	User consulterUser(String username) throws Exception;
-	Reclamation reclamer(int user_id, String message) throws Exception;
+	User consulterAuthentificateUser() throws Exception;
+	Reclamation reclamer(String message) throws Exception;
 	User login(String username, String passwd, String source) throws Exception;
-	Conversation checkConversation(int user_id) throws Exception;
-	Message sendMessage(int user_id, String message, int conversation_id) throws Exception;
+	Conversation checkConversation() throws Exception;
+	Message sendMessage(String message, int conversation_id) throws Exception;
 	Collection<Message> consulterMessagesConversation(int conversation_id) throws Exception;
 }

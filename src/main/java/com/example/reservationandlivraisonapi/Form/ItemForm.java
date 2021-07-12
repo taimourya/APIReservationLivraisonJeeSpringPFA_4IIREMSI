@@ -10,7 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemForm implements Serializable {
-    private int restaurant_id;
     private String name;
     private float price;
     private String categoryName;

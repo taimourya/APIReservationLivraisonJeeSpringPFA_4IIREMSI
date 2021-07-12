@@ -26,8 +26,8 @@ public class LivreurMetierDB implements ILivreurMetier{
     CommandeBuyableRepository commandeBuyableRepository;
 
     @Override
-    public void accepterLivraison(int livreur_id, int livraison_id) throws Exception {
-        Livreur livreur = (Livreur) userMetier.consulterUser(livreur_id);
+    public void accepterLivraison(int livraison_id) throws Exception {
+        Livreur livreur = (Livreur) userMetier.consulterAuthentificateUser();
 
         if(livraisonRepository.findCurrentLivraison(livreur) != null)
             throw new Exception("vous avez deja une livraison en cours");
@@ -48,8 +48,8 @@ public class LivreurMetierDB implements ILivreurMetier{
         throw new Exception("Livraison introuvable");
     }
     @Override
-    public Livraison checkNewLivraison(int livreur_id) throws Exception {
-        Livreur livreur = (Livreur) userMetier.consulterUser(livreur_id);
+    public Livraison checkNewLivraison() throws Exception {
+        Livreur livreur = (Livreur) userMetier.consulterAuthentificateUser();
         if(livraisonRepository.findCurrentLivraison(livreur) != null)
             throw new Exception("vous avez deja une livraison en cours");
 
@@ -60,9 +60,8 @@ public class LivreurMetierDB implements ILivreurMetier{
     }
 
     @Override
-    public String nextStepLivraison(int livreur_id) throws Exception {
-        Livraison livraison = consulterLivraisonEnCours(livreur_id);
-
+    public String nextStepLivraison() throws Exception {
+        Livraison livraison = consulterLivraisonEnCours();
         livraison.setStat(livraison.getStat() + 1);
         String msg = "";
         if(livraison.getStat() == 2) {
@@ -78,8 +77,8 @@ public class LivreurMetierDB implements ILivreurMetier{
     }
 
     @Override
-    public Livraison consulterLivraisonEnCours(int livreur_id) throws Exception {
-        Livreur livreur = (Livreur) userMetier.consulterUser(livreur_id);
+    public Livraison consulterLivraisonEnCours() throws Exception {
+        Livreur livreur = (Livreur) userMetier.consulterAuthentificateUser();
         Livraison livraison = livraisonRepository.findCurrentLivraison(livreur);
         if(livraison == null)
             throw new Exception("vous n'avez aucune livraison en cours");
@@ -88,16 +87,16 @@ public class LivreurMetierDB implements ILivreurMetier{
     }
 
     @Override
-    public Collection<CommandeBuyable> consulterItemsLivraisonEnCours(int livreur_id) throws Exception {
-        Livreur livreur = (Livreur) userMetier.consulterUser(livreur_id);
+    public Collection<CommandeBuyable> consulterItemsLivraisonEnCours() throws Exception {
+        Livreur livreur = (Livreur) userMetier.consulterAuthentificateUser();
         Livraison livraison = livraisonRepository.findCurrentLivraison(livreur);
         return livraison.getCommandeBuyables();
     }
 
 
     @Override
-    public Collection<Livraison> consulterHistoriqueLivraison(int livreur_id) throws Exception {
-        Livreur livreur = (Livreur) userMetier.consulterUser(livreur_id);
+    public Collection<Livraison> consulterHistoriqueLivraison() throws Exception {
+        Livreur livreur = (Livreur) userMetier.consulterAuthentificateUser();
         return livraisonRepository.findByLivreur(livreur);
     }
 

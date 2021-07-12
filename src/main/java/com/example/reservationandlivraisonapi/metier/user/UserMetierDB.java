@@ -13,6 +13,8 @@ import com.example.reservationandlivraisonapi.entity.reclamation.Conversation;
 import com.example.reservationandlivraisonapi.entity.reclamation.Message;
 import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -51,8 +53,15 @@ public class UserMetierDB implements IUserMetier{
     }
 
     @Override
-    public Reclamation reclamer(int user_id, String message) throws Exception {
-        User user = consulterUser(user_id);
+    public User consulterAuthentificateUser() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return consulterUser(username);
+    }
+
+    @Override
+    public Reclamation reclamer(String message) throws Exception {
+        User user = consulterAuthentificateUser();
         Reclamation reclamation = new Reclamation(null, message, 0, new Date(), user, null, null);
         return reclamationRepository.save(reclamation);
     }
@@ -76,8 +85,8 @@ public class UserMetierDB implements IUserMetier{
     }
 
     @Override
-    public Conversation checkConversation(int user_id) throws Exception {
-        User user = consulterUser(user_id);
+    public Conversation checkConversation() throws Exception {
+        User user = consulterAuthentificateUser();
         Conversation conversation = conversationRepository.findCurrentConversation(user);
         if(conversation == null)
             throw new Exception("Aucune conversation trouvé");
@@ -85,8 +94,8 @@ public class UserMetierDB implements IUserMetier{
     }
 
     @Override
-    public Message sendMessage(int user_id, String message, int conversation_id) throws Exception {
-        User user = consulterUser(user_id);
+    public Message sendMessage(String message, int conversation_id) throws Exception {
+        User user = consulterAuthentificateUser();
         Optional<Conversation> opt = conversationRepository.findById(conversation_id);
         if(!opt.isPresent())
             throw new Exception("conversation introuvable");

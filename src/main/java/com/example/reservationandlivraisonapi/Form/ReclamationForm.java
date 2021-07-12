@@ -10,6 +10,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReclamationForm implements Serializable {
-    private int user_id;
     private String message;
 }

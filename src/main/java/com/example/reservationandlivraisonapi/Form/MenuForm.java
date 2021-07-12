@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MenuForm implements Serializable {
-    private int restaurant_id;
     private String name;
     private float price;
     private List<Integer> items;

@@ -6,11 +6,11 @@ import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
 
 public interface IAssistantMetier {
 
-	Reclamation consulterReclamationEnCours(int assistant_id) throws Exception;
-	Reclamation checkReclamation(int assistant_id) throws Exception;
-	Reclamation accepterReclamation(int assistant_id, int reclamation_id) throws Exception;
-	Reclamation terminerReclamation(int assistant_id) throws Exception;
-	void transferToAssistant(int assistant_id) throws Exception;
-	void transferToAssistantExpert(int assistant_id) throws Exception;
+	Reclamation consulterReclamationEnCours() throws Exception;
+	Reclamation checkReclamation() throws Exception;
+	Reclamation accepterReclamation(int reclamation_id) throws Exception;
+	Reclamation terminerReclamation() throws Exception;
+	void transferToAssistant() throws Exception;
+	void transferToAssistantExpert() throws Exception;
 
 }

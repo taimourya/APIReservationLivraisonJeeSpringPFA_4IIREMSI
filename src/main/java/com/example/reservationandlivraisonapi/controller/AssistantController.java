@@ -14,33 +14,33 @@ public class AssistantController {
     @Autowired
     IAssistantMetier assistantMetier;
 
-    @GetMapping("/reclamation/check")
-    public Reclamation checkReclamation(int assistant_id) throws Exception {
-        return assistantMetier.checkReclamation(assistant_id);
+    @GetMapping("/assistant/reclamation/check")
+    public Reclamation checkReclamation() throws Exception {
+        return assistantMetier.checkReclamation();
     }
-    @GetMapping("/reclamation/accept")
-    public Reclamation accepterReclamation(int assistant_id, int reclamation_id) throws Exception {
-        return assistantMetier.accepterReclamation(assistant_id, reclamation_id);
-    }
-
-    @GetMapping("/reclamation/resolved")
-    public void resolveConversation(int assistant_id) throws Exception {
-        assistantMetier.terminerReclamation(assistant_id);
+    @GetMapping("/assistant/reclamation/accept")
+    public Reclamation accepterReclamation(int reclamation_id) throws Exception {
+        return assistantMetier.accepterReclamation(reclamation_id);
     }
 
-    @GetMapping("/reclamation/enCours")
-    public Reclamation reclamationEnCours(int assistant_id) throws Exception {
-        return assistantMetier.consulterReclamationEnCours(assistant_id);
+    @GetMapping("/assistant/reclamation/resolved")
+    public void resolveConversation() throws Exception {
+        assistantMetier.terminerReclamation();
     }
 
-    @GetMapping("/reclamation/transfer")
-    public void transferReclamatin(int assistant_id) throws Exception {
-        assistantMetier.transferToAssistant(assistant_id);
+    @GetMapping("/assistant/reclamation/enCours")
+    public Reclamation reclamationEnCours() throws Exception {
+        return assistantMetier.consulterReclamationEnCours();
     }
 
-    @GetMapping("/reclamation/transfer/expert")
-    public void transferReclamatinExpert(int assistant_id) throws Exception {
-        assistantMetier.transferToAssistantExpert(assistant_id);
+    @GetMapping("/assistant/reclamation/transfer")
+    public void transferReclamatin() throws Exception {
+        assistantMetier.transferToAssistant();
+    }
+
+    @GetMapping("/assistant/reclamation/transfer/expert")
+    public void transferReclamatinExpert() throws Exception {
+        assistantMetier.transferToAssistantExpert();
     }
 
 }

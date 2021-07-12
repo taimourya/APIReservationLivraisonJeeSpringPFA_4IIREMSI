@@ -8,10 +8,10 @@ import java.util.Collection;
 
 public interface ILivreurMetier {
 
-	void accepterLivraison(int livreur_id, int livraison_id) throws Exception;
-	Livraison checkNewLivraison(int livreur_id) throws Exception;
-	String nextStepLivraison(int livreur_id) throws Exception;
-	Livraison consulterLivraisonEnCours(int livreur_id) throws Exception;
-	Collection<CommandeBuyable> consulterItemsLivraisonEnCours(int livreur_id) throws Exception;
-	Collection<Livraison> consulterHistoriqueLivraison(int livreur_id) throws Exception;
+	void accepterLivraison(int livraison_id) throws Exception;
+	Livraison checkNewLivraison() throws Exception;
+	String nextStepLivraison() throws Exception;
+	Livraison consulterLivraisonEnCours() throws Exception;
+	Collection<CommandeBuyable> consulterItemsLivraisonEnCours() throws Exception;
+	Collection<Livraison> consulterHistoriqueLivraison() throws Exception;
 }

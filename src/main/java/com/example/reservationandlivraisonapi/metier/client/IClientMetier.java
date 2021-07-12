@@ -20,20 +20,20 @@ public interface IClientMetier {
 	public Collection<Buyable> consulterMenu(String mc);
 	public Collection<Buyable> consulterMenuRestaurant(int restaurant_id, String mc) throws Exception;
 	public Collection<Restaurant> consulterRestaurantProche(float longitude, float latitude);
-	public Livraison commanderLivraison(int client_id, float longitude, float latitude) throws Exception;
-	public Reservation commanderReservation(int client_id, Date dateReservation) throws Exception;
-	public Collection<Livraison> consulterLivraisonEnCours(int client_id) throws Exception;
-	public Collection<Reservation> consulterReservationEnCours(int client_id) throws Exception;
-	public Note noterLivreur(int client_id, int livreur_id, String message, int etoile) throws Exception;
-	public Note noterRestaurant(int client_id, int restaurant_id, String message, int etoile) throws Exception;
-	public String getCodePromo(int client_id) throws Exception;
-	public Paraignage useCodePromo(int client_id, String codePromo) throws Exception;
-	public Collection<Commande> consulterHistorique(int client_id) throws Exception;
-	public PanierWithInfo consulterPanier(int client_id) throws Exception;
-	public void ajouterAuPanier(int buyable_id, int qtn, int client_id) throws Exception;
-	public void removeQtnPanier(int buyable_id, int qtn, int client_id) throws Exception;
-	public void supprimerDuPanier(int buyable_id, int client_id) throws Exception;
-	public void viderPanier(int client_id) throws Exception;
-	public float totalPanier(int client_id) throws Exception;
+	public Livraison commanderLivraison(float longitude, float latitude) throws Exception;
+	public Reservation commanderReservation(Date dateReservation) throws Exception;
+	public Collection<Livraison> consulterLivraisonEnCours() throws Exception;
+	public Collection<Reservation> consulterReservationEnCours() throws Exception;
+	public Note noterLivreur(int livreur_id, String message, int etoile) throws Exception;
+	public Note noterRestaurant(int restaurant_id, String message, int etoile) throws Exception;
+	public String getCodePromo() throws Exception;
+	public Paraignage useCodePromo(String codePromo) throws Exception;
+	public Collection<Commande> consulterHistorique() throws Exception;
+	public PanierWithInfo consulterPanier() throws Exception;
+	public void ajouterAuPanier(int buyable_id, int qtn) throws Exception;
+	public void removeQtnPanier(int buyable_id, int qtn) throws Exception;
+	public void supprimerDuPanier(int buyable_id) throws Exception;
+	public void viderPanier() throws Exception;
+	public float totalPanier() throws Exception;
 
 }

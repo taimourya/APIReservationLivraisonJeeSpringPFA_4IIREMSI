@@ -12,7 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class LivraisonForm implements Serializable {
 
-    private int client_id;
     private float latitude;
     private float longitude;
 }

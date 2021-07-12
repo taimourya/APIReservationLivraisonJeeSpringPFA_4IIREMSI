@@ -55,37 +55,37 @@ public class RestaurantMetierDB implements IRestaurantMetier{
 
 
     @Override
-    public Drink addDrink(int restaurant_id, String name, float price, String categoryName) throws Exception {
-        DrinkCategory category = addDrinkCategory(categoryName, restaurant_id);
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Drink addDrink(String name, float price, String categoryName) throws Exception {
+        DrinkCategory category = addDrinkCategory(categoryName);
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         Drink drink = new Drink(null, name, price, "image", restaurant, category);
         return buyableRepository.save(drink);
     }
 
     @Override
-    public DrinkCategory addDrinkCategory(String name, int restaurant_id) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public DrinkCategory addDrinkCategory(String name) throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return categoryRepository.save(new DrinkCategory(name, restaurant));
     }
 
     @Override
-    public Food addFood(int restaurant_id, String name, float price, String categoryName) throws Exception {
+    public Food addFood(String name, float price, String categoryName) throws Exception {
 
-        FoodCategory category = addFoodCategory(categoryName, restaurant_id);
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+        FoodCategory category = addFoodCategory(categoryName);
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         Food food = new Food(null, name, price, "image", restaurant, category);
         return buyableRepository.save(food);
     }
 
     @Override
-    public FoodCategory addFoodCategory(String name, int restaurant_id) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public FoodCategory addFoodCategory(String name) throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return categoryRepository.save(new FoodCategory(name, restaurant));
     }
 
     @Override
-    public Menu addMenu(int restaurant_id, String name, float price, List<Integer> items) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Menu addMenu(String name, float price, List<Integer> items) throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         Menu menu = new Menu(null, name, price, "image", restaurant);
 
         menu = buyableRepository.save(menu);
@@ -111,20 +111,26 @@ public class RestaurantMetierDB implements IRestaurantMetier{
     }
 
     @Override
+    public Collection<Buyable> conuslterListBuyable(String mc) throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
+        return buyableRepository.findByRestaurantAndNameContains(restaurant, mc);
+    }
+
+    @Override
     public Collection<Buyable> conuslterListBuyable(int restaurant_id, String mc) throws Exception {
         Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
         return buyableRepository.findByRestaurantAndNameContains(restaurant, mc);
     }
 
     @Override
-    public Collection<FoodCategory> conuslterFoodCategories(int restaurant_id) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Collection<FoodCategory> conuslterFoodCategories() throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return foodCategoryRepository.findByRestaurant(restaurant);
     }
 
     @Override
-    public Collection<DrinkCategory> conuslterDrinkCategories(int restaurant_id) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Collection<DrinkCategory> conuslterDrinkCategories() throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return drinkCategoryRepository.findByRestaurant(restaurant);
     }
 
@@ -164,35 +170,35 @@ public class RestaurantMetierDB implements IRestaurantMetier{
     }
 
     @Override
-    public Collection<Reservation> reservationEnCours(int restaurant_id) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Collection<Reservation> reservationEnCours() throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return reservationRepository.findByRestaurantAndDateReservationAfter(restaurant, new Date());
     }
 
     @Override
-    public void changerLocalisation(int restaurant_id, float latitude, float longitude) throws Exception {
+    public void changerLocalisation(float latitude, float longitude) throws Exception {
 
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         restaurant.setLatitude(latitude);
         restaurant.setLongitude(longitude);
         restaurantRepository.save(restaurant);
     }
 
     @Override
-    public Collection<Food> getFoodsByMc(int restaurant_id, String mc) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Collection<Food> getFoodsByMc(String mc) throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return foodRepository.findByNameContainsAndRestaurant(mc, restaurant);
     }
 
     @Override
-    public Collection<Drink> getDrinksByMc(int restaurant_id, String mc) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Collection<Drink> getDrinksByMc(String mc) throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return drinkRepository.findByNameContainsAndRestaurant(mc, restaurant);
     }
 
     @Override
-    public Collection<Menu> getMenusByMc(int restaurant_id, String mc) throws Exception {
-        Restaurant restaurant = (Restaurant)userMetier.consulterUser(restaurant_id);
+    public Collection<Menu> getMenusByMc(String mc) throws Exception {
+        Restaurant restaurant = (Restaurant)userMetier.consulterAuthentificateUser();
         return menuRepository.findByNameContainsAndRestaurant(mc, restaurant);
     }
 }

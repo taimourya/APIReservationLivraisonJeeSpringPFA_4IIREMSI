@@ -16,29 +16,29 @@ public class LivreurController {
     @Autowired
     ILivreurMetier livreurMetier;
 
-    @GetMapping("/livraison/check")
-    public Livraison checkLivraison(@RequestParam int livreur_id) throws Exception {
-        return livreurMetier.checkNewLivraison(livreur_id);
+    @GetMapping("/livreur/livraison/check")
+    public Livraison checkLivraison() throws Exception {
+        return livreurMetier.checkNewLivraison();
     }
-    @GetMapping("/livraison/accept")
-    public void accepterLivraison(@RequestParam int livreur_id, @RequestParam int livraison_id) throws Exception {
-        livreurMetier.accepterLivraison(livreur_id, livraison_id);
+    @GetMapping("/livreur/livraison/accept")
+    public void accepterLivraison(@RequestParam int livraison_id) throws Exception {
+        livreurMetier.accepterLivraison(livraison_id);
     }
-    @GetMapping("/livraison/nextStep")
-    public String livraisonNextStep(@RequestParam int livreur_id) throws Exception {
-        return livreurMetier.nextStepLivraison(livreur_id);
+    @GetMapping("/livreur/livraison/nextStep")
+    public String livraisonNextStep() throws Exception {
+        return livreurMetier.nextStepLivraison();
     }
-    @GetMapping("/livraison/enCours")
-    public Livraison livraisonEnCours(@RequestParam int livreur_id) throws Exception {
-        return livreurMetier.consulterLivraisonEnCours(livreur_id);
+    @GetMapping("/livreur/livraison/enCours")
+    public Livraison livraisonEnCours() throws Exception {
+        return livreurMetier.consulterLivraisonEnCours();
     }
-    @GetMapping("/livraison/enCours/items")
-    public Collection<CommandeBuyable> getItemsLivraison(@RequestParam int livreur_id) throws Exception {
-        return livreurMetier.consulterItemsLivraisonEnCours(livreur_id);
+    @GetMapping("/livreur/livraison/enCours/items")
+    public Collection<CommandeBuyable> getItemsLivraison() throws Exception {
+        return livreurMetier.consulterItemsLivraisonEnCours();
     }
-    @GetMapping("/livraison/historique")
-    public Collection<Livraison> historiqueLivraison(@RequestParam int livreur_id) throws Exception {
-        return livreurMetier.consulterHistoriqueLivraison(livreur_id);
+    @GetMapping("/livreur/livraison/historique")
+    public Collection<Livraison> historiqueLivraison() throws Exception {
+        return livreurMetier.consulterHistoriqueLivraison();
     }
 
 }

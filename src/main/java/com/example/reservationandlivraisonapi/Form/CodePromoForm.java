@@ -11,7 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CodePromoForm implements Serializable {
 
-    private int client_id;
     private String codePromo;
 
 }

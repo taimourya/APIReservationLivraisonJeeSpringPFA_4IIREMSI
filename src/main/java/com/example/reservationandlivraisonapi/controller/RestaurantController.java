@@ -21,78 +21,73 @@ public class RestaurantController {
     IRestaurantMetier restaurantMetier;
 
     @GetMapping("/restaurant/reservationEnCours")
-    public Collection<Reservation> getReservations(@RequestParam int restaurant_id) throws Exception {
-        return restaurantMetier.reservationEnCours(restaurant_id);
+    public Collection<Reservation> getReservations() throws Exception {
+        return restaurantMetier.reservationEnCours();
     }
 
     @GetMapping("/restaurant/get/categories")
-    public Collection<? extends Category> getFoodCategories(
-            @RequestParam int restaurant_id,
-            @RequestParam String type
-    ) throws Exception {
+    public Collection<? extends Category> getFoodCategories(@RequestParam String type) throws Exception {
         if(type.equalsIgnoreCase("food")) {
-            return restaurantMetier.conuslterFoodCategories(restaurant_id);
+            return restaurantMetier.conuslterFoodCategories();
         }
         else if(type.equalsIgnoreCase("drink")){
-            return restaurantMetier.conuslterDrinkCategories(restaurant_id);
+            return restaurantMetier.conuslterDrinkCategories();
         }
         return null;
     }
 
     @GetMapping("/restaurant/buyables")
     public Collection<? extends Buyable> getBuyables(
-            @RequestParam(required = true) int restaurant_id,
             @RequestParam(required = true) String type,
             @RequestParam(required = false, defaultValue = "") String mc
     ) throws Exception {
 
         if(type.equalsIgnoreCase("food")) {
-            return restaurantMetier.getFoodsByMc(restaurant_id, mc);
+            return restaurantMetier.getFoodsByMc(mc);
         }
         else if(type.equalsIgnoreCase("drink")){
-            return restaurantMetier.getDrinksByMc(restaurant_id, mc);
+            return restaurantMetier.getDrinksByMc(mc);
         }
         else if(type.equalsIgnoreCase("menu")){
-            return restaurantMetier.getMenusByMc(restaurant_id, mc);
+            return restaurantMetier.getMenusByMc(mc);
         }
         else {
-            return restaurantMetier.conuslterListBuyable(restaurant_id, mc);
+            return restaurantMetier.conuslterListBuyable(mc);
         }
     }
 
 
-    @GetMapping("/buyable")
+    @GetMapping("user/buyable")
     public Buyable getBuyable(@RequestParam int id) throws Exception {
 
         return restaurantMetier.consulterBuyable(id);
     }
 
-    @PostMapping("/save/item")
+    @PostMapping("restaurant/save/item")
     public Buyable saveItem(@RequestBody ItemForm itemForm) throws Exception {
 
-        System.out.println("rest id : " + itemForm.getRestaurant_id());
         System.out.println("name : " + itemForm.getName());
         System.out.println("price : " + itemForm.getPrice());
         System.out.println("categoryName : " + itemForm.getCategoryName());
         System.out.println("type : " + itemForm.getType());
 
         if(itemForm.getType().equalsIgnoreCase("food")) {
-            return restaurantMetier.addFood(itemForm.getRestaurant_id(), itemForm.getName(), itemForm.getPrice(), itemForm.getCategoryName());
+            return restaurantMetier.addFood(itemForm.getName(), itemForm.getPrice(), itemForm.getCategoryName());
         }
         else if(itemForm.getType().equalsIgnoreCase("drink")){
-            return restaurantMetier.addDrink(itemForm.getRestaurant_id(), itemForm.getName(), itemForm.getPrice(), itemForm.getCategoryName());
+            return restaurantMetier.addDrink(itemForm.getName(), itemForm.getPrice(), itemForm.getCategoryName());
         }
         throw new Exception("type not found");
     }
 
-    @PostMapping("/save/menu")
+    @PostMapping("restaurant/save/menu")
     public Menu saveMenu(@RequestBody MenuForm menuForm) throws Exception {
-        return restaurantMetier.addMenu(menuForm.getRestaurant_id(), menuForm.getName(), menuForm.getPrice(), menuForm.getItems());
+        return restaurantMetier.addMenu(menuForm.getName(), menuForm.getPrice(), menuForm.getItems());
     }
 
     @GetMapping("/restaurant/localisation")
-    public void localisation(@RequestParam int restaurant_id, @RequestParam float latitude, @RequestParam float longitude) throws Exception {
-        restaurantMetier.changerLocalisation(restaurant_id, latitude, longitude);
+    public void localisation(@RequestParam float latitude, @RequestParam float longitude) throws Exception {
+        restaurantMetier.changerLocalisation(latitude, longitude);
     }
 
 }

@@ -29,8 +29,8 @@ public class AssistantMetierDB implements IAssistantMetier{
 
 
     @Override
-    public Reclamation consulterReclamationEnCours(int assistant_id) throws Exception {
-        Assistant assistant = (Assistant) userMetier.consulterUser(assistant_id);
+    public Reclamation consulterReclamationEnCours() throws Exception {
+        Assistant assistant = (Assistant) userMetier.consulterAuthentificateUser();
         Reclamation reclamation = reclamationRepository.findCurrentReclamation(assistant);
         if(reclamation != null)
             return reclamation;
@@ -38,8 +38,8 @@ public class AssistantMetierDB implements IAssistantMetier{
     }
 
     @Override
-    public Reclamation checkReclamation(int assistant_id) throws Exception {
-        Assistant assistant = (Assistant) userMetier.consulterUser(assistant_id);
+    public Reclamation checkReclamation() throws Exception {
+        Assistant assistant = (Assistant) userMetier.consulterAuthentificateUser();
         if(reclamationRepository.findCurrentReclamation(assistant) != null)
             throw new Exception("vous avez deja une reclamation en cours de traitment");
 
@@ -52,8 +52,8 @@ public class AssistantMetierDB implements IAssistantMetier{
     }
 
     @Override
-    public Reclamation accepterReclamation(int assistant_id, int reclamation_id) throws Exception {
-        Assistant assistant = (Assistant) userMetier.consulterUser(assistant_id);
+    public Reclamation accepterReclamation(int reclamation_id) throws Exception {
+        Assistant assistant = (Assistant) userMetier.consulterAuthentificateUser();
         Optional<Reclamation> opt = reclamationRepository.findById(reclamation_id);
         if(!opt.isPresent())
             throw new Exception("reclamation introuvable");
@@ -71,23 +71,23 @@ public class AssistantMetierDB implements IAssistantMetier{
     }
 
     @Override
-    public Reclamation terminerReclamation(int assistant_id) throws Exception {
-        Reclamation reclamation = consulterReclamationEnCours(assistant_id);
+    public Reclamation terminerReclamation() throws Exception {
+        Reclamation reclamation = consulterReclamationEnCours();
         reclamation.setStat(2);
         return reclamationRepository.save(reclamation);
     }
 
     @Override
-    public void transferToAssistant(int assistant_id) throws Exception {
-        Reclamation reclamation = consulterReclamationEnCours(assistant_id);
+    public void transferToAssistant() throws Exception {
+        Reclamation reclamation = consulterReclamationEnCours();
         reclamation.setAssistant(null);
         reclamation.setStat(0);
         reclamationRepository.save(reclamation);
     }
 
     @Override
-    public void transferToAssistantExpert(int assistant_id) throws Exception {
-        Reclamation reclamation = consulterReclamationEnCours(assistant_id);
+    public void transferToAssistantExpert() throws Exception {
+        Reclamation reclamation = consulterReclamationEnCours();
         reclamation.setAssistant(null);
         reclamation.setStat(-1);
         reclamationRepository.save(reclamation);
