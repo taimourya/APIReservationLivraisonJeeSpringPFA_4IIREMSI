@@ -88,6 +88,7 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
                 "+21243334135", new Date()));
 
         userRepository.save(new Restaurant(null, "Tacos", pass, "ville", "adr",
+                33.3333f, 7.55665f,
                 "Tacos De lyon","+21243334135" ));
 
 
@@ -221,6 +222,20 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
                 "Beach mama", "Basmane", "ICebeery", "Kabuki",
                 "KFC", "Luigi", "Cosamiya", "Nespresso",
         };
+        double[] lats = {
+                33.333, 33.44334, 34.52452424, 35.524254254245,
+                33.52452245, 33.254254254, 33.52454254254, 33.254282252,
+                33.52452245, 33.254254254, 33.52454254254, 33.254282252,
+                33.9838063, 33.3389383, 33.2542336, 33.254254254,
+                33.368386389, 33.32398383, 33.3893893, 33.8389389398,
+        };
+        double[] longs = {
+                -7.365356, -7.32662626, -7.362662626, -7.262662626,
+                -7.236535365, -7.365356, -7.5422542, -7.39838386,
+                -7.254254242, -7.254254254, -7.839893983, -7.938252533,
+                -7.393825245, -7.636524545, -7.233452542, -7.542425432,
+                -7.398252542, -7.385442454, -7.225245256, -7.245254245,
+        };
         for(int i = 1; i < restnames.length + 1; i++) {
             userRepository.save(new Client(null, "cli"+i, pass, "cli"+i,
                     "cli"+i,"cin", "ville", "adrss", "taimourya@gmail.com" ,
@@ -238,8 +253,10 @@ public class ReservationAndLivraisonApiApplication implements CommandLineRunner 
                     "admin"+i,"cin", "ville", "adrss", "taimourya@gmail.com" ,
                     "+21243334135", new Date()));
 
+
             Restaurant r = userRepository.save(new Restaurant(null, "rest"+i, pass, "ville", "adr",
-                    restnames[i-1],"+21243334135" ));
+                    (float) lats[i-1], (float) longs[i-1],
+                    restnames[i-1], "+21243334135" ));
             for(int j = 0; j < 5; j++) {
                 DrinkCategory dc = categoryRepository.save(
                         categoryRepository.save(

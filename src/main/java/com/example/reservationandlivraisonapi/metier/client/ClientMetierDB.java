@@ -1,5 +1,6 @@
 package com.example.reservationandlivraisonapi.metier.client;
 
+import com.example.reservationandlivraisonapi.Service.Map.IMapService;
 import com.example.reservationandlivraisonapi.Service.panier.IPanierService;
 import com.example.reservationandlivraisonapi.dao.acteurs.ClientRepository;
 import com.example.reservationandlivraisonapi.dao.acteurs.RestaurantRepository;
@@ -27,6 +28,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +43,8 @@ public class ClientMetierDB  implements IClientMetier{
     IUserMetier userMetier;
     @Autowired
     IPanierService panierService;
+    @Autowired
+    IMapService mapService;
 
     @Autowired
     ClientRepository clientRepository;
@@ -85,15 +89,34 @@ public class ClientMetierDB  implements IClientMetier{
     @Override
     public Collection<Restaurant> consulterRestaurantProche(float longitude, float latitude) {
 
-        Collection<Restaurant> restaurants = restaurantRepository.findAll();
-        Collection<Restaurant> restaurantsProche = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurantsProche = new ArrayList<>();
+
+        List<Double> listDistance = new ArrayList<>();
 
         for(Restaurant r : restaurants) {
-            //trouver dist min
-            //add to restaurantsProche
+            listDistance.add(mapService.calcDistanceKm(latitude, longitude, r.getLatitude(), r.getLongitude()));
         }
 
-        return restaurants;
+        for(int j = 0; j < listDistance.size(); j++) {
+            double min = listDistance.get(0);
+            int indice = 0;
+            for (int i = 1; i < listDistance.size(); i++) {
+                if(listDistance.get(i) < min) {
+                    min = listDistance.get(i);
+                    indice = i;
+                }
+            }
+            System.out.println("min : " + min);
+            restaurantsProche.add(restaurants.get(indice));
+            listDistance.set(indice, 8888888888888888.0);
+        }
+
+        for(Restaurant r : restaurantsProche) {
+            System.out.println("name : " + r.getName());
+        }
+
+        return restaurantsProche;
     }
 
     @Override

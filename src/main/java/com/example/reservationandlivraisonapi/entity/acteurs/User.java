@@ -23,7 +23,7 @@ public class User {
 	private Integer user_id;
 	@Column(unique = true)
 	private String username;
-
+	@JsonIgnore
 	private String password;
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore

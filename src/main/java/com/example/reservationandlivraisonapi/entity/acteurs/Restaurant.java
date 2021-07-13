@@ -4,6 +4,7 @@ package com.example.reservationandlivraisonapi.entity.acteurs;
 import com.example.reservationandlivraisonapi.entity.buyable.Buyable;
 import com.example.reservationandlivraisonapi.entity.buyable.Category;
 import com.example.reservationandlivraisonapi.entity.commande.Reservation;
+import com.example.reservationandlivraisonapi.entity.reclamation.Reclamation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,5 +36,9 @@ public class Restaurant extends EntrepriseInfo {
 
     public Restaurant(Integer user_id, String username, String password, String ville, String adresse, String name, String phone) {
         super(user_id, username, password, ville, adresse, name, phone);
+    }
+
+    public Restaurant(Integer user_id, String username, String password, String ville, String adresse, float latitude, float longitude, String name, String phone) {
+        super(user_id, username, password, null, ville, adresse, latitude, longitude, name, phone);
     }
 }
