@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
 @RestController
@@ -40,6 +41,13 @@ public class UserController {
     @PostMapping("/user/login")
     public User login(@RequestBody LoginForm loginForm) throws Exception {
         return userMetier.login(loginForm.getUsername(), loginForm.getPassword(), loginForm.getSource());
+    }
+    @GetMapping("/user/checkAccess")
+    public boolean login(@RequestParam String source, HttpServletResponse response) throws Exception {
+        if(userMetier.checkAccess(source))
+            return true;
+        response.setStatus(403);
+        return false;
     }
     @GetMapping("/user/conversation/check")
     public Conversation checkConversation() throws Exception {

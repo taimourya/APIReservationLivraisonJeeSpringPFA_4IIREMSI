@@ -85,6 +85,22 @@ public class UserMetierDB implements IUserMetier{
     }
 
     @Override
+    public boolean checkAccess(String source) throws Exception {
+        User user = consulterAuthentificateUser();
+        if(source.equalsIgnoreCase("restaurant") && user instanceof Restaurant)
+            return true;
+        if(source.equalsIgnoreCase("livreur") && user instanceof Livreur)
+            return true;
+        if(source.equalsIgnoreCase("assistant") && user instanceof Assistant)
+            return true;
+        if(source.equalsIgnoreCase("client") && user instanceof Client)
+            return true;
+        if(source.equalsIgnoreCase("admin") && user instanceof Client)
+            return true;
+        return false;
+    }
+
+    @Override
     public Conversation checkConversation() throws Exception {
         User user = consulterAuthentificateUser();
         Conversation conversation = conversationRepository.findCurrentConversation(user);
